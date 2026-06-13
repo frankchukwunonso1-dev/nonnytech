@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nonnytech — Smart Tools. Real Results.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #080C12;
+      --deep:    #0E1620;
+      --panel:   #141E2C;
+      --border:  rgba(255,255,255,0.07);
+      --white:   #FFFFFF;
+      --mist:    #8FA8BF;
+      --electric:#00C2FF;
+      --volt:    #C6F135;
+      --orange:  #E85D04;
+      --amber:   #F4A226;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw; height: 68px;
+      background: rgba(8,12,18,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 20px; letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--electric), var(--volt));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--mist); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--electric);
+      color: var(--black);
+      font-weight: 700; font-size: 13px;
+      padding: 9px 22px; border-radius: 6px;
+      text-decoration: none; letter-spacing: 0.3px;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 6vw 80px;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(0,194,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,194,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-glow {
+      position: absolute; top: 10%; right: -10%;
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,194,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-glow-2 {
+      position: absolute; bottom: 0; left: -5%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(198,241,53,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,194,255,0.1);
+      border: 1px solid rgba(0,194,255,0.25);
+      border-radius: 20px; padding: 5px 14px;
+      font-size: 12px; font-weight: 600; color: var(--electric);
+      letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-eyebrow::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--electric);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+
+    .h1-accent {
+      background: linear-gradient(90deg, var(--electric), var(--volt));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--mist);
+      max-width: 560px;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--electric);
+      color: var(--black);
+      font-weight: 700; font-size: 15px;
+      padding: 14px 32px; border-radius: 7px;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      font-weight: 600; font-size: 15px;
+      padding: 14px 32px; border-radius: 7px;
+      border: 1px solid rgba(255,255,255,0.2);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--electric); background: rgba(0,194,255,0.05); }
+
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px; font-weight: 900;
+      color: var(--white); line-height: 1;
+    }
+
+    .stat-num span { color: var(--electric); }
+    .stat-label { font-size: 13px; color: var(--mist); margin-top: 4px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 6vw; }
+
+    .section-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--electric);
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800; line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: var(--mist); font-size: 17px;
+      max-width: 520px; line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    /* ── SERVICES ── */
+    #services { background: var(--deep); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .service-card {
+      background: var(--panel);
+      padding: 36px 32px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .service-card:hover { background: #1a2638; }
+
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 20px;
+    }
+
+    .service-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px; font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .service-desc { color: var(--mist); font-size: 14px; line-height: 1.7; }
+
+    .service-tag {
+      display: inline-block; margin-top: 16px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    #how { background: var(--black); }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+
+    .step {
+      padding: 36px 28px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .step:last-child { border-right: none; }
+
+    .step-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 56px; font-weight: 900;
+      color: rgba(0,194,255,0.1);
+      line-height: 1; margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px; font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .step-desc { color: var(--mist); font-size: 14px; line-height: 1.7; }
+
+    /* ── CASE STUDY ── */
+    #work { background: var(--deep); }
+
+    .case-study {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .case-left {
+      padding: 48px;
+      border-right: 1px solid var(--border);
+    }
+
+    .case-right {
+      padding: 48px;
+      background: var(--black);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    .case-tag {
+      display: inline-block;
+      background: rgba(198,241,53,0.1);
+      border: 1px solid rgba(198,241,53,0.3);
+      color: var(--volt);
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .case-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px; font-weight: 800;
+      margin-bottom: 14px; line-height: 1.2;
+    }
+
+    .case-desc { color: var(--mist); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+
+    .case-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .case-features li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--mist);
+    }
+    .case-features li::before {
+      content: '✓'; color: var(--volt);
+      font-weight: 700; font-size: 13px;
+      width: 20px; height: 20px;
+      background: rgba(198,241,53,0.1);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .case-metric {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 14px;
+    }
+
+    .case-metric-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px; font-weight: 900;
+      color: var(--electric); line-height: 1;
+    }
+
+    .case-metric-label { color: var(--mist); font-size: 13px; margin-top: 6px; }
+
+    .case-metrics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--black); }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 960px;
+    }
+
+    .pricing-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px 32px;
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+
+    .pricing-card.featured {
+      border-color: var(--electric);
+      background: linear-gradient(160deg, #0e1a2a, var(--panel));
+    }
+
+    .pricing-badge {
+      position: absolute; top: -12px; left: 32px;
+      background: var(--electric); color: var(--black);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 4px 14px; border-radius: 20px;
+    }
+
+    .pricing-plan {
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--mist);
+      margin-bottom: 12px;
+    }
+
+    .pricing-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 38px; font-weight: 900;
+      line-height: 1; margin-bottom: 6px;
+    }
+
+    .pricing-price sub { font-size: 16px; font-weight: 500; color: var(--mist); }
+    .pricing-period { color: var(--mist); font-size: 13px; margin-bottom: 24px; }
+
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .pricing-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--mist); }
+    .pricing-features li span.check { color: var(--volt); font-weight: 700; }
+
+    .btn-plan {
+      display: block; text-align: center;
+      padding: 13px; border-radius: 7px;
+      font-weight: 700; font-size: 14px;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .btn-plan:hover { opacity: 0.85; }
+    .btn-plan.primary { background: var(--electric); color: var(--black); }
+    .btn-plan.outline { border: 1px solid var(--border); color: var(--white); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--deep); }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .contact-info h2 { margin-bottom: 16px; }
+    .contact-info p { color: var(--mist); font-size: 16px; line-height: 1.7; margin-bottom: 36px; }
+
+    .contact-methods { display: flex; flex-direction: column; gap: 14px; }
+
+    .contact-method {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 20px;
+      text-decoration: none; color: var(--white);
+      transition: border-color 0.2s;
+    }
+    .contact-method:hover { border-color: var(--electric); }
+
+    .contact-method-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+
+    .contact-method-label { font-size: 11px; color: var(--mist); letter-spacing: 0.5px; }
+    .contact-method-val { font-size: 14px; font-weight: 600; margin-top: 2px; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+
+    .form-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--mist);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 7px; padding: 12px 16px;
+      color: var(--white); font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      outline: none; width: 100%;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--electric); }
+    .form-select { appearance: none; }
+    .form-textarea { resize: vertical; min-height: 110px; }
+
+    .form-submit {
+      background: var(--electric); color: var(--black);
+      font-weight: 700; font-size: 15px;
+      border: none; border-radius: 7px;
+      padding: 14px; cursor: pointer;
+      transition: opacity 0.2s; width: 100%;
+    }
+    .form-submit:hover { opacity: 0.85; }
+
+    .form-success {
+      display: none;
+      background: rgba(198,241,53,0.1);
+      border: 1px solid rgba(198,241,53,0.3);
+      border-radius: 7px; padding: 14px;
+      color: var(--volt); font-size: 14px; font-weight: 600;
+      text-align: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 40px 6vw;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 900; font-size: 18px; letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--electric), var(--volt));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .footer-copy { color: var(--mist); font-size: 13px; }
+
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--mist); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .case-study { grid-template-columns: 1fr; }
+      .case-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .contact-wrap { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 28px; }
+      .step { border-right: none; border-bottom: 1px solid var(--border); }
+      .step:last-child { border-bottom: none; }
+    }
+
+    /* ── PORTFOLIO GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 30px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover { border-color: rgba(0,194,255,0.3); transform: translateY(-2px); }
+
+    .featured-project {
+      grid-column: span 2;
+      background: linear-gradient(135deg, var(--panel), #0d1b2e);
+      border-color: rgba(0,194,255,0.2);
+    }
+
+    .project-header {
+      display: flex; gap: 16px; align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .project-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; border: 1px solid;
+      padding: 3px 10px; border-radius: 20px;
+      margin-bottom: 6px;
+    }
+
+    .project-title {
+      font-family: "Syne", sans-serif;
+      font-size: 17px; font-weight: 800; color: var(--white);
+      line-height: 1.2;
+    }
+
+    .project-industry { font-size: 12px; color: var(--mist); margin-top: 3px; }
+
+    .project-desc {
+      color: var(--mist); font-size: 14px; line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .project-features {
+      list-style: none; display: flex; flex-direction: column; gap: 7px;
+      margin-bottom: 20px;
+    }
+    .project-features li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 13px; color: var(--mist);
+    }
+    .project-features li::before {
+      content: "✓"; color: var(--electric); font-weight: 700;
+      font-size: 11px; margin-top: 2px; flex-shrink: 0;
+    }
+
+    .project-metrics {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 12px; margin-bottom: 18px;
+    }
+
+    .project-metric {
+      background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px; text-align: center;
+    }
+
+    .pm-num {
+      font-family: "Syne", sans-serif;
+      font-size: 22px; font-weight: 900; color: var(--electric);
+    }
+    .pm-label { font-size: 11px; color: var(--mist); margin-top: 3px; }
+
+    .project-quote {
+      background: rgba(0,0,0,0.2); border-left: 3px solid var(--electric);
+      padding: 14px 16px; border-radius: 0 6px 6px 0;
+      font-size: 13px; color: var(--mist); line-height: 1.7;
+      font-style: italic;
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .featured-project { grid-column: span 1; }
+      .project-metrics { grid-template-columns: repeat(2, 1fr); }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">NONNYTECH</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#work">Portfolio</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Now serving clients across Africa &amp; beyond</div>
+    <h1>Smart Tools.<br /><span class="h1-accent">Real Results.</span></h1>
+    <p class="hero-sub">
+      Nonnytech builds AI-powered tools, websites, and automation systems for businesses that want to work faster, serve customers better, and grow without hiring more staff.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start a Project →</a>
+      <a href="#work" class="btn-secondary">See Our Work</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">4<span>+</span></div>
+        <div class="stat-label">Services offered</div>
+      </div>
+      <div>
+        <div class="stat-num">48<span>h</span></div>
+        <div class="stat-label">Avg. delivery time</div>
+      </div>
+      <div>
+        <div class="stat-num">100<span>%</span></div>
+        <div class="stat-label">Built with AI</div>
+      </div>
+      <div>
+        <div class="stat-num">₦<span>0</span></div>
+        <div class="stat-label">Setup fee on starter plan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-eyebrow">What We Do</div>
+  <h2>Everything your business needs<br />to run smarter</h2>
+  <p class="section-sub">We don't just build websites. We build systems that save time, impress customers, and put your business ahead of the competition.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon" style="background:rgba(0,194,255,0.1)">🤖</div>
+      <div class="service-title">AI-Powered Tools</div>
+      <p class="service-desc">Custom AI assistants, quote generators, email auto-responders, and chatbots trained on your business data. Your team gets a 24/7 smart assistant.</p>
+      <span class="service-tag" style="background:rgba(0,194,255,0.1);color:#00C2FF;border:1px solid rgba(0,194,255,0.2)">Most popular</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon" style="background:rgba(198,241,53,0.1)">🌐</div>
+      <div class="service-title">Website Development</div>
+      <p class="service-desc">Fast, modern, mobile-ready websites built to convert visitors into customers. From landing pages to full business portals — designed to impress.</p>
+      <span class="service-tag" style="background:rgba(198,241,53,0.1);color:#C6F135;border:1px solid rgba(198,241,53,0.2)">Fast delivery</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon" style="background:rgba(244,162,38,0.1)">📊</div>
+      <div class="service-title">Data Analysis & Dashboards</div>
+      <p class="service-desc">Turn your raw business data into clear, visual dashboards. See your sales, operations, and customer trends at a glance — updated in real time.</p>
+      <span class="service-tag" style="background:rgba(244,162,38,0.1);color:#F4A226;border:1px solid rgba(244,162,38,0.2)">Insights-driven</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon" style="background:rgba(232,93,4,0.1)">⚡</div>
+      <div class="service-title">Automation & Chatbots</div>
+      <p class="service-desc">Automate repetitive tasks — customer replies, order updates, follow-ups, reports. Stop doing manually what a system can do for you automatically.</p>
+      <span class="service-tag" style="background:rgba(232,93,4,0.1);color:#E85D04;border:1px solid rgba(232,93,4,0.2)">Time-saver</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-eyebrow">The Process</div>
+  <h2>From idea to live product<br />in days — not months</h2>
+  <p class="section-sub">We move fast. No long contracts, no endless meetings. Just results.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Tell us what you need</div>
+      <p class="step-desc">Book a free call or send a WhatsApp message. We'll ask the right questions to understand your business and what you want to achieve.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">We design the solution</div>
+      <p class="step-desc">We scope out exactly what to build, show you a plan, and agree on price and timeline before any work begins. No surprises.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">We build and deliver</div>
+      <p class="step-desc">Most projects are delivered within 48–72 hours. You review, we refine, and your tool goes live — ready to use by your team and customers.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-title">We support and grow</div>
+      <p class="step-desc">We don't disappear after delivery. We offer ongoing support, updates, and can keep building as your business grows.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="work">
+  <div class="section-eyebrow">Portfolio</div>
+  <h2>Real work. Real impact.</h2>
+  <p class="section-sub">Five AI-powered tools built for real industries — each one solving a specific business problem with custom technology.</p>
+
+  <!-- Project Grid -->
+  <div class="projects-grid">
+
+    <!-- Wait & Carry -->
+    <div class="project-card featured-project">
+      <div class="project-header">
+        <div class="project-icon" style="background:rgba(0,194,255,0.1);color:#00C2FF">🚢</div>
+        <div>
+          <span class="project-tag" style="background:rgba(198,241,53,0.1);color:#C6F135;border-color:rgba(198,241,53,0.3)">Featured · Live Client</span>
+          <div class="project-title">Wait &amp; Carry Logistics Express Cargo</div>
+          <div class="project-industry">International Freight · China → Nigeria</div>
+        </div>
+      </div>
+      <p class="project-desc">Wait &amp; Carry imports goods from China to Nigeria for businesses and traders across the country. They needed a smarter way to handle customer enquiries, generate international freight quotes, and respond to emails — without hiring more staff.</p>
+      <ul class="project-features">
+        <li>AI shipping quote generator with real freight pricing (air &amp; sea)</li>
+        <li>Shipment tracking assistant with live chat support</li>
+        <li>Email auto-responder trained on company tone and policies</li>
+        <li>Password-protected admin panel — boss updates prices himself</li>
+        <li>Nonnytech branded · Delivered in 48 hours</li>
+      </ul>
+      <div class="project-metrics">
+        <div class="project-metric"><div class="pm-num">3x</div><div class="pm-label">Faster responses</div></div>
+        <div class="project-metric"><div class="pm-num">24/7</div><div class="pm-label">Always available</div></div>
+        <div class="project-metric"><div class="pm-num">0</div><div class="pm-label">Extra staff needed</div></div>
+        <div class="project-metric"><div class="pm-num">48h</div><div class="pm-label">Brief to live</div></div>
+      </div>
+      <div class="project-quote">"The tool handles customer enquiries automatically and generates quotes instantly. It saves us significant time every single day." <strong>— Management, Wait &amp; Carry</strong></div>
+    </div>
+
+    <!-- PrimeNest Realty -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon" style="background:rgba(212,175,95,0.1);color:#D4AF5F">🏠</div>
+        <div>
+          <span class="project-tag" style="background:rgba(212,175,95,0.1);color:#D4AF5F;border-color:rgba(212,175,95,0.3)">Real Estate · Nigeria</span>
+          <div class="project-title">PrimeNest Realty</div>
+          <div class="project-industry">Property Search · Mortgage · Client Inquiries</div>
+        </div>
+      </div>
+      <p class="project-desc">A complete AI property platform for Nigerian real estate agencies. Clients search for properties by location and budget, calculate mortgage repayments with a Nigerian advisor, and agents respond to inquiries instantly.</p>
+      <ul class="project-features">
+        <li>AI property search with instant realistic listings</li>
+        <li>Mortgage calculator with NGN formatting &amp; advisory</li>
+        <li>Client inquiry auto-responder (4 tone options)</li>
+      </ul>
+    </div>
+
+    <!-- Zuri Kitchen -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon" style="background:rgba(196,82,42,0.1);color:#C4522A">🌍</div>
+        <div>
+          <span class="project-tag" style="background:rgba(196,82,42,0.1);color:#E07A3A;border-color:rgba(196,82,42,0.3)">Restaurant · Lagos</span>
+          <div class="project-title">Zuri Kitchen</div>
+          <div class="project-industry">African Fusion · Menu · Reservations · Orders</div>
+        </div>
+      </div>
+      <p class="project-desc">An AI-powered restaurant management tool for a modern African fusion restaurant in Lagos. Personalised menu recommendations, table reservations with instant confirmation, and customer message auto-responses.</p>
+      <ul class="project-features">
+        <li>AI menu assistant with dietary &amp; preference filtering</li>
+        <li>Reservation system with table assignment &amp; staff notes</li>
+        <li>Order &amp; inquiry responder (WhatsApp, Instagram, Email)</li>
+      </ul>
+    </div>
+
+    <!-- Aso Grand Hotel -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon" style="background:rgba(201,168,76,0.1);color:#C9A84C">🏨</div>
+        <div>
+          <span class="project-tag" style="background:rgba(201,168,76,0.1);color:#C9A84C;border-color:rgba(201,168,76,0.3)">Hospitality · Abuja</span>
+          <div class="project-title">Aso Grand Hotel</div>
+          <div class="project-industry">5-Star · Bookings · Guest Services · Housekeeping</div>
+        </div>
+      </div>
+      <p class="project-desc">A luxury hotel management AI for a 5-star property in Abuja. Full room booking with pricing and VAT breakdown, 5-star guest inquiry responses by department, and a housekeeping request dispatch system.</p>
+      <ul class="project-features">
+        <li>Room booking with full cost breakdown &amp; GM welcome message</li>
+        <li>Guest inquiry responder across 7 hotel departments</li>
+        <li>Service request system with staff assignment &amp; tracking</li>
+      </ul>
+    </div>
+
+    <!-- BI Dashboard -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon" style="background:rgba(59,130,246,0.1);color:#3B82F6">📊</div>
+        <div>
+          <span class="project-tag" style="background:rgba(59,130,246,0.1);color:#3B82F6;border-color:rgba(59,130,246,0.3)">Data · Any Business</span>
+          <div class="project-title">Business Intelligence Dashboard</div>
+          <div class="project-industry">Revenue · Analytics · AI Insights · Any Industry</div>
+        </div>
+      </div>
+      <p class="project-desc">A universal business intelligence dashboard that turns raw business data into clear visual charts and AI-written reports. Works for logistics, restaurants, retail, hotels — any business that wants to understand its numbers.</p>
+      <ul class="project-features">
+        <li>Live revenue trend, bar, and pie charts</li>
+        <li>Top product/service performance rankings</li>
+        <li>AI-generated 3-point business insight report</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:48px">
+    <p style="color:#8FA8BF;font-size:15px;margin-bottom:20px">Every tool above was built in under 72 hours. Yours could be next.</p>
+    <a href="#contact" class="btn-primary">Start Your Project →</a>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-eyebrow">Pricing</div>
+  <h2>Simple, transparent pricing</h2>
+  <p class="section-sub">No hidden fees. No long-term contracts. Pay for what you need.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-plan">Starter</div>
+      <div class="pricing-price">₦75<sub>k</sub></div>
+      <div class="pricing-period">One-time setup</div>
+      <ul class="pricing-features">
+        <li><span class="check">✓</span> Single AI tool (quote, chatbot, or responder)</li>
+        <li><span class="check">✓</span> Mobile-ready design</li>
+        <li><span class="check">✓</span> Your branding included</li>
+        <li><span class="check">✓</span> 7-day support after delivery</li>
+        <li><span class="check">✓</span> Delivered in 48 hours</li>
+      </ul>
+      <a href="#contact" class="btn-plan outline">Get Started</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-plan">Business</div>
+      <div class="pricing-price">₦150<sub>k</sub></div>
+      <div class="pricing-period">One-time + ₦25k/month support</div>
+      <ul class="pricing-features">
+        <li><span class="check">✓</span> Full custom AI tool suite</li>
+        <li><span class="check">✓</span> Admin panel for your team</li>
+        <li><span class="check">✓</span> Website or landing page included</li>
+        <li><span class="check">✓</span> Data dashboard setup</li>
+        <li><span class="check">✓</span> 30-day priority support</li>
+        <li><span class="check">✓</span> Delivered in 72 hours</li>
+      </ul>
+      <a href="#contact" class="btn-plan primary">Get Started</a>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-plan">Enterprise</div>
+      <div class="pricing-price">Custom</div>
+      <div class="pricing-period">Let's talk about your needs</div>
+      <ul class="pricing-features">
+        <li><span class="check">✓</span> Full automation system</li>
+        <li><span class="check">✓</span> Multi-tool integration</li>
+        <li><span class="check">✓</span> Staff training included</li>
+        <li><span class="check">✓</span> Ongoing development retainer</li>
+        <li><span class="check">✓</span> Dedicated account support</li>
+      </ul>
+      <a href="#contact" class="btn-plan outline">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <div class="section-eyebrow">Get In Touch</div>
+      <h2>Let's build something great together</h2>
+      <p>Tell us what your business needs. We'll respond within 24 hours with a plan and a price — no obligation.</p>
+      <div class="contact-methods">
+        <a href="mailto:frankchukwunonso1@gmail.com" class="contact-method">
+          <div class="contact-method-icon" style="background:rgba(0,194,255,0.1)">✉</div>
+          <div>
+            <div class="contact-method-label">EMAIL</div>
+            <div class="contact-method-val">frankchukwunonso1@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://wa.me/2349067855807" target="_blank" class="contact-method">
+          <div class="contact-method-icon" style="background:rgba(34,197,94,0.1)">💬</div>
+          <div>
+            <div class="contact-method-label">WHATSAPP</div>
+            <div class="contact-method-val">+234 906 785 5807</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input class="form-input" type="text" placeholder="e.g. Emeka Obi" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Business Name</label>
+            <input class="form-input" type="text" placeholder="e.g. Obi Logistics Ltd" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email or WhatsApp</label>
+          <input class="form-input" type="text" placeholder="Your email or WhatsApp number" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">What do you need?</label>
+          <select class="form-select">
+            <option value="">Select a service</option>
+            <option>AI-Powered Tool</option>
+            <option>Website Development</option>
+            <option>Data Dashboard</option>
+            <option>Automation / Chatbot</option>
+            <option>Not sure — let's talk</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tell us about your business</label>
+          <textarea class="form-textarea" placeholder="Briefly describe what you do and what problem you want to solve..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+        <div class="form-success" id="formSuccess">
+          ✓ Message received! We're opening WhatsApp so you can send it directly — we'll respond within a few hours.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NONNYTECH</div>
+  <div class="footer-copy">© 2025 Nonnytech · AI Tools for African Businesses</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#work">Portfolio</a>
+    <a href="#contact">Contact</a>
+    <a href="mailto:frankchukwunonso1@gmail.com">Email</a>
+    <a href="https://wa.me/2349067855807" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+<script>
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? '#fff' : '';
+    });
+  });
+
+  // Form submission
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name = e.target.querySelector('input[placeholder*="Emeka"]').value || "there";
+    const contact = e.target.querySelectorAll('input')[2].value || "";
+    const service = e.target.querySelector('select').value || "your project";
+    const message = e.target.querySelector('textarea').value || "";
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    // Build WhatsApp message
+    const waText = encodeURIComponent(
+      "Hello Nonnytech! 👋\n\n" +
+      "My name is " + name + ".\n" +
+      "Service needed: " + service + "\n" +
+      (message ? "Details: " + message + "\n" : "") +
+      (contact ? "Contact: " + contact : "")
+    );
+
+    setTimeout(() => {
+      document.getElementById('formSuccess').style.display = 'block';
+      btn.style.display = 'none';
+      // Open WhatsApp with pre-filled message
+      window.open('https://wa.me/2349067855807?text=' + waText, '_blank');
+    }, 800);
+  }
+
+  // Make all CTA buttons scroll smoothly to contact
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href="#contact"]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const contact = document.getElementById('contact');
+        if (contact) {
+          contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    document.querySelectorAll('a[href="#work"]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const work = document.getElementById('work');
+        if (work) work.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    document.querySelectorAll('a[href="#services"]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const el = document.getElementById('services');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+    document.querySelectorAll('a[href="#pricing"]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const el = document.getElementById('pricing');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .step, .case-study, .pricing-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
