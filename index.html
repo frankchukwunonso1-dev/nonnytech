@@ -2,874 +2,854 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nonnytech — We Build the Tech That Helps You Run Your Business.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --black:   #080C12;
-      --deep:    #0E1620;
-      --panel:   #141E2C;
-      --border:  rgba(255,255,255,0.07);
-      --white:   #FFFFFF;
-      --mist:    #8FA8BF;
-      --electric:#00C2FF;
-      --volt:    #C6F135;
-      --orange:  #E85D04;
-      --amber:   #F4A226;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 6vw; height: 68px;
-      background: rgba(8,12,18,0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 900; font-size: 20px; letter-spacing: 1px;
-      background: linear-gradient(90deg, var(--electric), var(--volt));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      text-decoration: none;
-    }
-
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { color: var(--mist); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--white); }
-
-    .nav-cta {
-      background: var(--electric);
-      color: var(--black);
-      font-weight: 700; font-size: 13px;
-      padding: 9px 22px; border-radius: 6px;
-      text-decoration: none; letter-spacing: 0.3px;
-      transition: opacity 0.2s;
-    }
-    .nav-cta:hover { opacity: 0.85; }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 120px 6vw 80px;
-      position: relative; overflow: hidden;
-    }
-
-    .hero-grid {
-      position: absolute; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(rgba(0,194,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,194,255,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .hero-glow {
-      position: absolute; top: 10%; right: -10%;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,194,255,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-glow-2 {
-      position: absolute; bottom: 0; left: -5%;
-      width: 400px; height: 400px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(198,241,53,0.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-content { position: relative; z-index: 1; max-width: 760px; }
-
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(0,194,255,0.1);
-      border: 1px solid rgba(0,194,255,0.25);
-      border-radius: 20px; padding: 5px 14px;
-      font-size: 12px; font-weight: 600; color: var(--electric);
-      letter-spacing: 1px; text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .hero-eyebrow::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--electric);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.7); }
-    }
-
-    h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(42px, 7vw, 80px);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -1px;
-      margin-bottom: 24px;
-    }
-
-    .h1-accent {
-      background: linear-gradient(90deg, var(--electric), var(--volt));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    .hero-sub {
-      font-size: clamp(16px, 2vw, 19px);
-      color: var(--mist);
-      max-width: 560px;
-      margin-bottom: 40px;
-      line-height: 1.7;
-    }
-
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-
-    .btn-primary {
-      background: var(--electric);
-      color: var(--black);
-      font-weight: 700; font-size: 15px;
-      padding: 14px 32px; border-radius: 7px;
-      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--white);
-      font-weight: 600; font-size: 15px;
-      padding: 14px 32px; border-radius: 7px;
-      border: 1px solid rgba(255,255,255,0.2);
-      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .btn-secondary:hover { border-color: var(--electric); background: rgba(0,194,255,0.05); }
-
-    .hero-stats {
-      display: flex; gap: 48px; margin-top: 64px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 32px; font-weight: 900;
-      color: var(--white); line-height: 1;
-    }
-
-    .stat-num span { color: var(--electric); }
-    .stat-label { font-size: 13px; color: var(--mist); margin-top: 4px; }
-
-    /* ── SECTIONS ── */
-    section { padding: 100px 6vw; }
-
-    .section-eyebrow {
-      font-size: 11px; font-weight: 700; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--electric);
-      margin-bottom: 12px;
-    }
-
-    h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800; line-height: 1.15;
-      margin-bottom: 16px;
-    }
-
-    .section-sub {
-      color: var(--mist); font-size: 17px;
-      max-width: 520px; line-height: 1.7;
-      margin-bottom: 56px;
-    }
-
-    /* ── SERVICES ── */
-    #services { background: var(--deep); }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2px;
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .service-card {
-      background: var(--panel);
-      padding: 36px 32px;
-      position: relative;
-      transition: background 0.2s;
-    }
-    .service-card:hover { background: #1a2638; }
-
-    .service-icon {
-      width: 48px; height: 48px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; margin-bottom: 20px;
-    }
-
-    .service-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px; font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .service-desc { color: var(--mist); font-size: 14px; line-height: 1.7; }
-
-    .service-tag {
-      display: inline-block; margin-top: 16px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
-      padding: 4px 12px; border-radius: 20px;
-    }
-
-    /* ── HOW IT WORKS ── */
-    #how { background: var(--black); }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0;
-      position: relative;
-    }
-
-    .step {
-      padding: 36px 28px;
-      border-right: 1px solid var(--border);
-      position: relative;
-    }
-    .step:last-child { border-right: none; }
-
-    .step-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 56px; font-weight: 900;
-      color: rgba(0,194,255,0.1);
-      line-height: 1; margin-bottom: 16px;
-    }
-
-    .step-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 17px; font-weight: 800;
-      margin-bottom: 10px;
-    }
-
-    .step-desc { color: var(--mist); font-size: 14px; line-height: 1.7; }
-
-    /* ── CASE STUDY ── */
-    #work { background: var(--deep); }
-
-    .case-study {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-
-    .case-left {
-      padding: 48px;
-      border-right: 1px solid var(--border);
-    }
-
-    .case-right {
-      padding: 48px;
-      background: var(--black);
-      display: flex; flex-direction: column; justify-content: center;
-    }
-
-    .case-tag {
-      display: inline-block;
-      background: rgba(198,241,53,0.1);
-      border: 1px solid rgba(198,241,53,0.3);
-      color: var(--volt);
-      font-size: 11px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 4px 12px; border-radius: 20px;
-      margin-bottom: 20px;
-    }
-
-    .case-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 26px; font-weight: 800;
-      margin-bottom: 14px; line-height: 1.2;
-    }
-
-    .case-desc { color: var(--mist); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
-
-    .case-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .case-features li {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 14px; color: var(--mist);
-    }
-    .case-features li::before {
-      content: '✓'; color: var(--volt);
-      font-weight: 700; font-size: 13px;
-      width: 20px; height: 20px;
-      background: rgba(198,241,53,0.1);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .case-metric {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 24px;
-      margin-bottom: 14px;
-    }
-
-    .case-metric-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 36px; font-weight: 900;
-      color: var(--electric); line-height: 1;
-    }
-
-    .case-metric-label { color: var(--mist); font-size: 13px; margin-top: 6px; }
-
-    .case-metrics-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-    /* ── PRICING ── */
-    #pricing { background: var(--black); }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 960px;
-    }
-
-    .pricing-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 36px 32px;
-      position: relative;
-      transition: transform 0.2s;
-    }
-    .pricing-card:hover { transform: translateY(-4px); }
-
-    .pricing-card.featured {
-      border-color: var(--electric);
-      background: linear-gradient(160deg, #0e1a2a, var(--panel));
-    }
-
-    .pricing-badge {
-      position: absolute; top: -12px; left: 32px;
-      background: var(--electric); color: var(--black);
-      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
-      padding: 4px 14px; border-radius: 20px;
-    }
-
-    .pricing-plan {
-      font-size: 12px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--mist);
-      margin-bottom: 12px;
-    }
-
-    .pricing-price {
-      font-family: 'Syne', sans-serif;
-      font-size: 38px; font-weight: 900;
-      line-height: 1; margin-bottom: 6px;
-    }
-
-    .pricing-price sub { font-size: 16px; font-weight: 500; color: var(--mist); }
-    .pricing-period { color: var(--mist); font-size: 13px; margin-bottom: 24px; }
-
-    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-    .pricing-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--mist); }
-    .pricing-features li span.check { color: var(--volt); font-weight: 700; }
-
-    .btn-plan {
-      display: block; text-align: center;
-      padding: 13px; border-radius: 7px;
-      font-weight: 700; font-size: 14px;
-      text-decoration: none; transition: opacity 0.2s;
-    }
-    .btn-plan:hover { opacity: 0.85; }
-    .btn-plan.primary { background: var(--electric); color: var(--black); }
-    .btn-plan.outline { border: 1px solid var(--border); color: var(--white); }
-
-    /* ── CONTACT ── */
-    #contact { background: var(--deep); }
-
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 64px;
-      align-items: start;
-    }
-
-    .contact-info h2 { margin-bottom: 16px; }
-    .contact-info p { color: var(--mist); font-size: 16px; line-height: 1.7; margin-bottom: 36px; }
-
-    .contact-methods { display: flex; flex-direction: column; gap: 14px; }
-
-    .contact-method {
-      display: flex; align-items: center; gap: 14px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 10px; padding: 16px 20px;
-      text-decoration: none; color: var(--white);
-      transition: border-color 0.2s;
-    }
-    .contact-method:hover { border-color: var(--electric); }
-
-    .contact-method-icon {
-      width: 40px; height: 40px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-
-    .contact-method-label { font-size: 11px; color: var(--mist); letter-spacing: 0.5px; }
-    .contact-method-val { font-size: 14px; font-weight: 600; margin-top: 2px; }
-
-    .contact-form { display: flex; flex-direction: column; gap: 16px; }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-    .form-group { display: flex; flex-direction: column; gap: 7px; }
-
-    .form-label {
-      font-size: 11px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--mist);
-    }
-
-    .form-input, .form-select, .form-textarea {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 7px; padding: 12px 16px;
-      color: var(--white); font-size: 14px;
-      font-family: 'Inter', sans-serif;
-      outline: none; width: 100%;
-      transition: border-color 0.2s;
-    }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--electric); }
-    .form-select { appearance: none; }
-    .form-textarea { resize: vertical; min-height: 110px; }
-
-    .form-submit {
-      background: var(--electric); color: var(--black);
-      font-weight: 700; font-size: 15px;
-      border: none; border-radius: 7px;
-      padding: 14px; cursor: pointer;
-      transition: opacity 0.2s; width: 100%;
-    }
-    .form-submit:hover { opacity: 0.85; }
-
-    .form-success {
-      display: none;
-      background: rgba(198,241,53,0.1);
-      border: 1px solid rgba(198,241,53,0.3);
-      border-radius: 7px; padding: 14px;
-      color: var(--volt); font-size: 14px; font-weight: 600;
-      text-align: center;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--black);
-      border-top: 1px solid var(--border);
-      padding: 40px 6vw;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 20px;
-    }
-
-    .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 900; font-size: 18px; letter-spacing: 1px;
-      background: linear-gradient(90deg, var(--electric), var(--volt));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }
-
-    .footer-copy { color: var(--mist); font-size: 13px; }
-
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { color: var(--mist); font-size: 13px; text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--white); }
-
-    /* ── MOBILE ── */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .case-study { grid-template-columns: 1fr; }
-      .case-left { border-right: none; border-bottom: 1px solid var(--border); }
-      .contact-wrap { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .hero-stats { gap: 28px; }
-      .step { border-right: none; border-bottom: 1px solid var(--border); }
-      .step:last-child { border-bottom: none; }
-    }
-
-    /* ── PORTFOLIO GRID ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .project-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px 30px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .project-card:hover { border-color: rgba(0,194,255,0.3); transform: translateY(-2px); }
-
-    .featured-project {
-      grid-column: span 2;
-      background: linear-gradient(135deg, var(--panel), #0d1b2e);
-      border-color: rgba(0,194,255,0.2);
-    }
-
-    .project-header {
-      display: flex; gap: 16px; align-items: flex-start;
-      margin-bottom: 16px;
-    }
-
-    .project-icon {
-      width: 48px; height: 48px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; flex-shrink: 0;
-    }
-
-    .project-tag {
-      display: inline-block;
-      font-size: 10px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase; border: 1px solid;
-      padding: 3px 10px; border-radius: 20px;
-      margin-bottom: 6px;
-    }
-
-    .project-title {
-      font-family: "Syne", sans-serif;
-      font-size: 17px; font-weight: 800; color: var(--white);
-      line-height: 1.2;
-    }
-
-    .project-industry { font-size: 12px; color: var(--mist); margin-top: 3px; }
-
-    .project-desc {
-      color: var(--mist); font-size: 14px; line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    .project-features {
-      list-style: none; display: flex; flex-direction: column; gap: 7px;
-      margin-bottom: 20px;
-    }
-    .project-features li {
-      display: flex; align-items: flex-start; gap: 8px;
-      font-size: 13px; color: var(--mist);
-    }
-    .project-features li::before {
-      content: "✓"; color: var(--electric); font-weight: 700;
-      font-size: 11px; margin-top: 2px; flex-shrink: 0;
-    }
-
-    .project-metrics {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 12px; margin-bottom: 18px;
-    }
-
-    .project-metric {
-      background: rgba(0,0,0,0.3); border: 1px solid var(--border);
-      border-radius: 8px; padding: 12px; text-align: center;
-    }
-
-    .pm-num {
-      font-family: "Syne", sans-serif;
-      font-size: 22px; font-weight: 900; color: var(--electric);
-    }
-    .pm-label { font-size: 11px; color: var(--mist); margin-top: 3px; }
-
-    .project-quote {
-      background: rgba(0,0,0,0.2); border-left: 3px solid var(--electric);
-      padding: 14px 16px; border-radius: 0 6px 6px 0;
-      font-size: 13px; color: var(--mist); line-height: 1.7;
-      font-style: italic;
-    }
-
-    @media (max-width: 768px) {
-      .projects-grid { grid-template-columns: 1fr; }
-      .featured-project { grid-column: span 1; }
-      .project-metrics { grid-template-columns: repeat(2, 1fr); }
-    }
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Nonnytech builds AI-powered automation systems, business websites, and intelligent dashboards for African businesses. Enterprise-grade solutions delivered in 48–72 hours." />
+<meta name="keywords" content="AI automation Nigeria, business automation Africa, AI tools Nigeria, website development Awka, workflow automation Nigerian businesses" />
+<title>Nonnytech — Scale Smarter with AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ink:       #0B0E14;
+  --deep:      #111827;
+  --panel:     #1A2236;
+  --raised:    #1F2D45;
+  --rule:      rgba(255,255,255,0.08);
+  --ruleHi:    rgba(255,255,255,0.15);
+  --white:     #FFFFFF;
+  --silver:    #94A3B8;
+  --mist:      #64748B;
+  --signal:    #2563EB;
+  --signalHi:  #3B82F6;
+  --lime:      #84CC16;
+  --amber:     #F59E0B;
+  --red:       #EF4444;
+  --green:     #22C55E;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ink);
+  color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--panel); border-radius: 3px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw; height: 66px;
+  background: rgba(11,14,20,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.nav-brand {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+
+.nav-mark {
+  width: 32px; height: 32px; border-radius: 6px;
+  background: var(--signal);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600; font-size: 14px; color: var(--white);
+}
+
+.nav-name {
+  font-weight: 700; font-size: 16px; letter-spacing: 0.3px; color: var(--white);
+}
+
+.nav-links {
+  display: flex; gap: 28px; list-style: none;
+}
+.nav-links a {
+  color: var(--silver); text-decoration: none; font-size: 14px; font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+
+.btn-ghost {
+  background: transparent; border: 1px solid var(--rule); color: var(--silver);
+  padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 500;
+  cursor: pointer; text-decoration: none; transition: all 0.2s; font-family: inherit;
+}
+.btn-ghost:hover { border-color: var(--ruleHi); color: var(--white); }
+
+.btn-primary {
+  background: var(--signal); color: var(--white);
+  padding: 9px 20px; border-radius: 6px; font-size: 13px; font-weight: 600;
+  cursor: pointer; text-decoration: none; border: none;
+  transition: background 0.2s; font-family: inherit; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary:hover { background: var(--signalHi); }
+
+.btn-large {
+  padding: 14px 32px; font-size: 15px; border-radius: 8px;
+}
+
+.btn-outline-white {
+  background: transparent; border: 1px solid var(--ruleHi); color: var(--white);
+  padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 500;
+  cursor: pointer; text-decoration: none; transition: all 0.2s; font-family: inherit;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.06); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 5vw 80px;
+  position: relative; overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(37,99,235,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(132,204,22,0.06) 0%, transparent 60%);
+}
+
+.hero-grid-lines {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.hero-content { position: relative; z-index: 1; max-width: 820px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(37,99,235,0.12); border: 1px solid rgba(37,99,235,0.3);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: #60A5FA; letter-spacing: 0.5px;
+  margin-bottom: 28px;
+}
+
+.hero-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%; background: #60A5FA;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.hero-h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(40px, 6.5vw, 76px);
+  line-height: 1.08; letter-spacing: -1px;
+  margin-bottom: 24px; font-weight: 400;
+}
+
+.hero-h1 em {
+  font-style: italic; color: #60A5FA;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 1.8vw, 19px); color: var(--silver);
+  max-width: 540px; line-height: 1.75; margin-bottom: 40px;
+}
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 64px; }
+
+.hero-proof {
+  display: flex; gap: 40px; flex-wrap: wrap;
+  padding-top: 40px; border-top: 1px solid var(--rule);
+}
+
+.proof-item { }
+.proof-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 34px; color: var(--white); line-height: 1;
+}
+.proof-num span { color: #60A5FA; }
+.proof-label { font-size: 13px; color: var(--mist); margin-top: 3px; }
+
+/* ── SECTIONS ── */
+section { padding: 96px 5vw; }
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: #60A5FA; margin-bottom: 14px;
+}
+
+.section-h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400; line-height: 1.15; margin-bottom: 16px;
+}
+
+.section-sub {
+  color: var(--silver); font-size: 17px; max-width: 520px; line-height: 1.75;
+  margin-bottom: 56px;
+}
+
+/* ── METRICS BAND ── */
+#metrics {
+  background: var(--deep); padding: 40px 5vw;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+}
+
+.metrics-row {
+  display: flex; justify-content: space-around; flex-wrap: wrap; gap: 32px;
+}
+
+.metric {
+  text-align: center;
+}
+.metric-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 40px; color: var(--white); line-height: 1;
+}
+.metric-num span { color: #60A5FA; }
+.metric-label { font-size: 13px; color: var(--mist); margin-top: 6px; letter-spacing: 0.3px; }
+
+/* ── SERVICES ── */
+#services { background: var(--ink); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px; border: 1px solid var(--rule); border-radius: 12px; overflow: hidden;
+}
+
+.service-card {
+  background: var(--deep); padding: 36px 32px;
+  position: relative; transition: background 0.2s;
+  border: 1px solid transparent;
+}
+.service-card:hover { background: var(--panel); }
+
+.service-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--mist); letter-spacing: 2px; margin-bottom: 20px;
+}
+
+.service-icon {
+  width: 44px; height: 44px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 18px;
+}
+
+.service-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px; font-weight: 400; margin-bottom: 10px; color: var(--white);
+}
+
+.service-desc { font-size: 14px; color: var(--silver); line-height: 1.7; margin-bottom: 18px; }
+
+.service-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.service-tag {
+  font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 4px;
+  background: rgba(255,255,255,0.05); color: var(--silver); border: 1px solid var(--rule);
+}
+
+/* ── PROCESS ── */
+#process { background: var(--deep); }
+
+.process-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; position: relative;
+}
+
+.process-step {
+  padding: 32px 28px; border-right: 1px solid var(--rule); position: relative;
+}
+.process-step:last-child { border-right: none; }
+
+.step-line {
+  position: absolute; top: 52px; right: -1px; width: 1px; height: 24px;
+  background: var(--signal);
+}
+
+.step-n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--signal); letter-spacing: 2px; margin-bottom: 16px;
+}
+.step-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px; font-weight: 400; margin-bottom: 10px;
+}
+.step-desc { font-size: 13px; color: var(--silver); line-height: 1.7; }
+
+/* ── PORTFOLIO ── */
+#portfolio { background: var(--ink); }
+
+.portfolio-featured {
+  background: var(--deep); border: 1px solid var(--rule); border-radius: 12px;
+  display: grid; grid-template-columns: 1.1fr 1fr; overflow: hidden; margin-bottom: 20px;
+}
+
+.portfolio-left { padding: 48px; border-right: 1px solid var(--rule); }
+.portfolio-right { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+
+.portfolio-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--lime); background: rgba(132,204,22,0.1); border: 1px solid rgba(132,204,22,0.25);
+  border-radius: 4px; padding: 4px 10px; margin-bottom: 20px;
+}
+
+.portfolio-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px; font-weight: 400; margin-bottom: 14px; line-height: 1.2;
+}
+.portfolio-challenge-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 2px; color: var(--mist); text-transform: uppercase; margin-bottom: 6px;
+}
+.portfolio-challenge { font-size: 14px; color: var(--silver); line-height: 1.7; margin-bottom: 20px; }
+
+.portfolio-solution-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 2px; color: var(--mist); text-transform: uppercase; margin-bottom: 8px;
+}
+
+.portfolio-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.portfolio-features li {
+  display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--silver);
+}
+.portfolio-features li::before {
+  content: '→'; color: var(--signal); font-weight: 600; flex-shrink: 0; margin-top: 1px;
+}
+
+.impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+
+.impact-card {
+  background: var(--panel); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 18px 16px;
+}
+.impact-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px; color: var(--lime); line-height: 1;
+}
+.impact-label { font-size: 11px; color: var(--mist); margin-top: 5px; }
+
+.portfolio-quote {
+  background: rgba(37,99,235,0.08); border-left: 3px solid var(--signal);
+  padding: 14px 16px; border-radius: 0 6px 6px 0;
+  font-size: 13px; color: var(--silver); line-height: 1.7; font-style: italic;
+}
+.portfolio-quote cite { display: block; margin-top: 8px; color: var(--mist); font-style: normal; font-size: 11px; letter-spacing: 0.5px; }
+
+.portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+.portfolio-card {
+  background: var(--deep); border: 1px solid var(--rule); border-radius: 10px;
+  padding: 28px; transition: border-color 0.2s, transform 0.2s;
+}
+.portfolio-card:hover { border-color: var(--ruleHi); transform: translateY(-2px); }
+
+.pc-icon { font-size: 28px; margin-bottom: 16px; }
+.pc-industry {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 2px; color: var(--mist); text-transform: uppercase; margin-bottom: 8px;
+}
+.pc-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px; font-weight: 400; margin-bottom: 10px;
+}
+.pc-challenge { font-size: 13px; color: var(--silver); line-height: 1.6; margin-bottom: 14px; }
+.pc-divider { height: 1px; background: var(--rule); margin-bottom: 14px; }
+.pc-impact { display: flex; gap: 16px; flex-wrap: wrap; }
+.pc-impact-item { }
+.pc-impact-num { font-size: 20px; font-weight: 700; color: var(--white); }
+.pc-impact-label { font-size: 11px; color: var(--mist); }
+
+/* ── PRICING ── */
+#pricing { background: var(--deep); }
+
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 980px;
+}
+
+.pricing-card {
+  background: var(--panel); border: 1px solid var(--rule); border-radius: 10px;
+  padding: 36px 30px; position: relative; transition: transform 0.2s;
+}
+.pricing-card:hover { transform: translateY(-3px); }
+.pricing-card.featured { border-color: var(--signal); background: linear-gradient(160deg, #1A2236, #1E2D47); }
+
+.pricing-badge {
+  position: absolute; top: -12px; left: 28px;
+  background: var(--signal); color: var(--white);
+  font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
+}
+
+.pricing-plan {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--mist); margin-bottom: 14px;
+}
+
+.pricing-price {
+  font-family: 'DM Serif Display', serif;
+  font-size: 40px; font-weight: 400; line-height: 1; margin-bottom: 6px;
+}
+.pricing-price sub { font-size: 16px; font-weight: 400; color: var(--mist); font-family: 'DM Sans', sans-serif; }
+
+.pricing-period { font-size: 13px; color: var(--mist); margin-bottom: 24px; }
+.pricing-divider { height: 1px; background: var(--rule); margin-bottom: 20px; }
+
+.pricing-trust {
+  background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2);
+  border-radius: 6px; padding: 10px 14px; margin-bottom: 20px;
+  font-size: 12px; color: #60A5FA; line-height: 1.5;
+}
+
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.pricing-features li { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--silver); }
+.pricing-features li .check { color: var(--lime); font-weight: 700; font-size: 12px; }
+
+.btn-plan {
+  display: block; text-align: center; padding: 12px; border-radius: 7px;
+  font-weight: 600; font-size: 14px; text-decoration: none; transition: opacity 0.2s;
+  font-family: inherit; border: none; cursor: pointer;
+}
+.btn-plan:hover { opacity: 0.85; }
+.btn-plan.primary { background: var(--signal); color: var(--white); }
+.btn-plan.outline { border: 1px solid var(--rule); color: var(--white); background: transparent; }
+
+/* ── ACADEMY ── */
+#academy { background: var(--ink); }
+
+.academy-wrap {
+  background: var(--deep); border: 1px solid var(--rule); border-radius: 14px;
+  display: grid; grid-template-columns: 1fr 1fr; overflow: hidden;
+}
+
+.academy-left { padding: 56px 48px; }
+.academy-right { background: var(--panel); padding: 56px 48px; }
+
+.academy-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(132,204,22,0.1); border: 1px solid rgba(132,204,22,0.25);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 12px; font-weight: 600; color: var(--lime); margin-bottom: 24px;
+}
+
+.academy-h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(26px, 3vw, 38px); font-weight: 400;
+  line-height: 1.2; margin-bottom: 16px;
+}
+
+.academy-sub { font-size: 15px; color: var(--silver); line-height: 1.75; margin-bottom: 28px; }
+
+.academy-tracks { display: flex; flex-direction: column; gap: 14px; }
+
+.academy-track {
+  background: var(--ink); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+
+.track-icon {
+  width: 40px; height: 40px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+
+.track-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.track-desc { font-size: 13px; color: var(--silver); line-height: 1.6; }
+.track-tag { font-size: 11px; color: var(--lime); font-weight: 600; margin-top: 6px; }
+
+.academy-enrol { margin-top: 28px; }
+
+/* ── CONTACT ── */
+#contact { background: var(--deep); }
+
+.contact-wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+
+.contact-info h2 { margin-bottom: 14px; }
+.contact-info p { color: var(--silver); font-size: 15px; line-height: 1.75; margin-bottom: 36px; }
+
+.contact-channels { display: flex; flex-direction: column; gap: 12px; }
+
+.contact-channel {
+  display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+  background: var(--panel); border: 1px solid var(--rule); border-radius: 8px;
+  text-decoration: none; color: var(--white); transition: border-color 0.2s;
+}
+.contact-channel:hover { border-color: var(--ruleHi); }
+
+.channel-icon {
+  width: 38px; height: 38px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 17px;
+}
+.channel-type { font-size: 10px; color: var(--mist); letter-spacing: 1px; text-transform: uppercase; }
+.channel-val { font-size: 14px; font-weight: 500; margin-top: 2px; }
+
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--mist); }
+
+.form-input, .form-select, .form-textarea {
+  background: var(--panel); border: 1px solid var(--rule); border-radius: 7px;
+  padding: 11px 14px; color: var(--white); font-size: 14px; font-family: inherit;
+  outline: none; transition: border-color 0.2s; width: 100%;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--signal); }
+.form-textarea { resize: vertical; min-height: 100px; }
+.form-select { appearance: none; }
+
+.form-submit {
+  background: var(--signal); color: var(--white); border: none; border-radius: 7px;
+  padding: 14px; font-weight: 700; font-size: 14px; cursor: pointer; font-family: inherit;
+  transition: background 0.2s; letter-spacing: 0.3px;
+}
+.form-submit:hover { background: var(--signalHi); }
+
+.form-success {
+  display: none; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25);
+  border-radius: 7px; padding: 14px; color: var(--green); font-size: 14px; font-weight: 600; text-align: center;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink); border-top: 1px solid var(--rule);
+  padding: 40px 5vw;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+}
+
+.footer-brand { display: flex; align-items: center; gap: 10px; }
+.footer-name { font-weight: 700; font-size: 15px; }
+.footer-tagline { font-size: 12px; color: var(--mist); margin-top: 2px; }
+
+.footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer-links a { color: var(--mist); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+
+.footer-copy { color: var(--mist); font-size: 12px; }
+
+/* ── NONNYTECH FOOTER CREDIT ── */
+.nonnytech-credit {
+  background: var(--deep); border-top: 1px solid var(--rule);
+  padding: 24px 5vw; text-align: center;
+}
+.nonnytech-credit-brand {
+  font-weight: 900; font-size: 15px; letter-spacing: 2px;
+  background: linear-gradient(90deg, #00C2FF, #C6F135);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px;
+}
+.nonnytech-credit p { color: var(--mist); font-size: 12px; margin-bottom: 10px; }
+.nonnytech-credit-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.credit-link {
+  font-size: 12px; font-weight: 600; text-decoration: none; border-radius: 20px; padding: 5px 14px; border: 1px solid;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .services-grid { grid-template-columns: 1fr; }
+  .portfolio-featured { grid-template-columns: 1fr; }
+  .portfolio-left { border-right: none; border-bottom: 1px solid var(--rule); }
+  .portfolio-grid { grid-template-columns: 1fr 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 440px; }
+  .academy-wrap { grid-template-columns: 1fr; }
+  .contact-wrap { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+  .hero-proof { gap: 24px; }
+}
+</style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">NONNYTECH</a>
+  <a class="nav-brand" href="#">
+    <div class="nav-mark">N</div>
+    <div class="nav-name">Nonnytech</div>
+  </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#work">Portfolio</a></li>
-    <li><a href="#training">Training</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#academy">Academy</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-  <a class="nav-cta" href="#contact">Book a Call</a>
+  <div class="nav-actions">
+    <a href="#academy" class="btn-ghost">Academy</a>
+    <a href="#contact" class="btn-primary">Book a Call</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow-2"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Now serving clients across Africa &amp; beyond</div>
-    <h1>We Build the Tech<br /><span class="h1-accent">That Helps You Run Your Business.</span></h1>
+    <div class="hero-badge">Now serving businesses across Africa &amp; beyond</div>
+    <h1 class="hero-h1">
+      Scale Smarter<br />
+      with <em>AI Automation</em><br />
+      Built for Your Business.
+    </h1>
     <p class="hero-sub">
-      Nonnytech builds AI-powered tools, websites, and automation systems for businesses that want to work faster, serve customers better, and grow without hiring more staff.
+      Nonnytech delivers enterprise-grade AI tools, intelligent websites, and automation systems — purpose-built for African businesses. From idea to live product in 48–72 hours.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Start a Project →</a>
-      <a href="#work" class="btn-secondary">See Our Work</a>
+      <a href="#contact" class="btn-primary btn-large">Start a Project →</a>
+      <a href="#portfolio" class="btn-outline-white">See Our Work</a>
     </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">4<span>+</span></div>
-        <div class="stat-label">Services offered</div>
+    <div class="hero-proof">
+      <div class="proof-item">
+        <div class="proof-num">48<span>h</span></div>
+        <div class="proof-label">Average delivery time</div>
       </div>
-      <div>
-        <div class="stat-num">48<span>h</span></div>
-        <div class="stat-label">Avg. delivery time</div>
+      <div class="proof-item">
+        <div class="proof-num">3<span>x</span></div>
+        <div class="proof-label">Faster customer responses</div>
       </div>
-      <div>
-        <div class="stat-num">100<span>%</span></div>
-        <div class="stat-label">Built with AI</div>
+      <div class="proof-item">
+        <div class="proof-num">0</div>
+        <div class="proof-label">Extra staff needed</div>
       </div>
-      <div>
-        <div class="stat-num">₦<span>0</span></div>
-        <div class="stat-label">Setup fee on starter plan</div>
+      <div class="proof-item">
+        <div class="proof-num">100<span>%</span></div>
+        <div class="proof-label">AI-powered solutions</div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- METRICS -->
+<div id="metrics">
+  <div class="metrics-row">
+    <div class="metric"><div class="metric-num">4<span>+</span></div><div class="metric-label">Industries served</div></div>
+    <div class="metric"><div class="metric-num">₦0</div><div class="metric-label">Setup fee on Starter</div></div>
+    <div class="metric"><div class="metric-num">72<span>h</span></div><div class="metric-label">Max delivery on Business plan</div></div>
+    <div class="metric"><div class="metric-num">24<span>/7</span></div><div class="metric-label">Automation uptime</div></div>
+    <div class="metric"><div class="metric-num">100<span>%</span></div><div class="metric-label">Price agreed before work begins</div></div>
+  </div>
+</div>
 
 <!-- SERVICES -->
 <section id="services">
-  <div class="section-eyebrow">What We Do</div>
-  <h2>Everything your business needs<br />to run smarter</h2>
-  <p class="section-sub">We don't just build websites. We build systems that save time, impress customers, and put your business ahead of the competition.</p>
+  <div class="eyebrow">What We Build</div>
+  <h2 class="section-h2">Four ways we automate<br />your business operations</h2>
+  <p class="section-sub">Each solution is built specifically for your business — not a template, not a generic tool.</p>
+
   <div class="services-grid">
     <div class="service-card">
-      <div class="service-icon" style="background:rgba(0,194,255,0.1)">🤖</div>
-      <div class="service-title">AI-Powered Tools</div>
-      <p class="service-desc">Custom AI assistants, quote generators, email auto-responders, and chatbots trained on your business data. Your team gets a 24/7 smart assistant.</p>
-      <span class="service-tag" style="background:rgba(0,194,255,0.1);color:#00C2FF;border:1px solid rgba(0,194,255,0.2)">Most popular</span>
+      <div class="service-num">01</div>
+      <div class="service-icon" style="background:rgba(37,99,235,0.12)">🤖</div>
+      <div class="service-name">Intelligent Business Assistants &amp; Custom AI Engines</div>
+      <p class="service-desc">Deploy a 24/7 digital workforce that handles customer enquiries, generates quotes, responds to emails, and answers questions — automatically, at any hour, without adding staff.</p>
+      <div class="service-tags">
+        <span class="service-tag">AI Chatbots</span>
+        <span class="service-tag">Quote Automation</span>
+        <span class="service-tag">Email Responders</span>
+        <span class="service-tag">FAQ Engines</span>
+      </div>
     </div>
+
     <div class="service-card">
-      <div class="service-icon" style="background:rgba(198,241,53,0.1)">🌐</div>
-      <div class="service-title">Website Development</div>
-      <p class="service-desc">Fast, modern, mobile-ready websites built to convert visitors into customers. From landing pages to full business portals — designed to impress.</p>
-      <span class="service-tag" style="background:rgba(198,241,53,0.1);color:#C6F135;border:1px solid rgba(198,241,53,0.2)">Fast delivery</span>
+      <div class="service-num">02</div>
+      <div class="service-icon" style="background:rgba(132,204,22,0.1)">🌐</div>
+      <div class="service-name">High-Conversion Digital Platforms</div>
+      <p class="service-desc">Fast, mobile-ready business websites and portals designed to turn visitors into customers. Built with clear calls-to-action, WhatsApp integration, and lead capture forms that work.</p>
+      <div class="service-tags">
+        <span class="service-tag">Business Websites</span>
+        <span class="service-tag">Landing Pages</span>
+        <span class="service-tag">E-commerce</span>
+        <span class="service-tag">Customer Portals</span>
+      </div>
     </div>
+
     <div class="service-card">
-      <div class="service-icon" style="background:rgba(244,162,38,0.1)">📊</div>
-      <div class="service-title">Data Analysis & Dashboards</div>
-      <p class="service-desc">Turn your raw business data into clear, visual dashboards. See your sales, operations, and customer trends at a glance — updated in real time.</p>
-      <span class="service-tag" style="background:rgba(244,162,38,0.1);color:#F4A226;border:1px solid rgba(244,162,38,0.2)">Insights-driven</span>
+      <div class="service-num">03</div>
+      <div class="service-icon" style="background:rgba(245,158,11,0.1)">📊</div>
+      <div class="service-name">Operational Intelligence &amp; Performance Dashboards</div>
+      <p class="service-desc">Real-time visual dashboards that transform your raw business data into clear revenue trends, top-performing products, and AI-written insights — so you make decisions based on facts.</p>
+      <div class="service-tags">
+        <span class="service-tag">Revenue Tracking</span>
+        <span class="service-tag">KPI Dashboards</span>
+        <span class="service-tag">AI Reports</span>
+        <span class="service-tag">Data Analysis</span>
+      </div>
     </div>
+
     <div class="service-card">
-      <div class="service-icon" style="background:rgba(232,93,4,0.1)">⚡</div>
-      <div class="service-title">Automation & Chatbots</div>
-      <p class="service-desc">Automate repetitive tasks — customer replies, order updates, follow-ups, reports. Stop doing manually what a system can do for you automatically.</p>
-      <span class="service-tag" style="background:rgba(232,93,4,0.1);color:#E85D04;border:1px solid rgba(232,93,4,0.2)">Time-saver</span>
+      <div class="service-num">04</div>
+      <div class="service-icon" style="background:rgba(239,68,68,0.1)">⚡</div>
+      <div class="service-name">Enterprise Process Automation</div>
+      <p class="service-desc">Eliminate operational bottlenecks. We automate order updates, internal service dispatch, staff workflows, reservation management, and repetitive back-office tasks — end to end.</p>
+      <div class="service-tags">
+        <span class="service-tag">Workflow Automation</span>
+        <span class="service-tag">Service Dispatch</span>
+        <span class="service-tag">Order Management</span>
+        <span class="service-tag">Staff Tools</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="section-eyebrow">The Process</div>
-  <h2>From idea to live product<br />in days — not months</h2>
-  <p class="section-sub">We move fast. No long contracts, no endless meetings. Just results.</p>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <div class="step-title">Tell us what you need</div>
-      <p class="step-desc">Book a free call or send a WhatsApp message. We'll ask the right questions to understand your business and what you want to achieve.</p>
+<!-- PROCESS -->
+<section id="process">
+  <div class="eyebrow">How It Works</div>
+  <h2 class="section-h2">From brief to live product<br />in days — not months</h2>
+  <p class="section-sub">No long contracts. No endless revisions. Just clear steps and fast delivery.</p>
+
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-n">STEP 01</div>
+      <div class="step-title">Discovery Call</div>
+      <p class="step-desc">We ask the right questions to understand your business, your customers, and the exact problem you want solved.</p>
     </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <div class="step-title">We design the solution</div>
-      <p class="step-desc">We scope out exactly what to build, show you a plan, and agree on price and timeline before any work begins. No surprises.</p>
+    <div class="process-step">
+      <div class="step-n">STEP 02</div>
+      <div class="step-title">Scoping &amp; Agreement</div>
+      <p class="step-desc">We define exactly what will be built, how long it takes, and what it costs — agreed before any work begins. No surprises.</p>
     </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <div class="step-title">We build and deliver</div>
-      <p class="step-desc">Most projects are delivered within 48–72 hours. You review, we refine, and your tool goes live — ready to use by your team and customers.</p>
+    <div class="process-step">
+      <div class="step-n">STEP 03</div>
+      <div class="step-title">Build &amp; Deliver</div>
+      <p class="step-desc">We build fast. Most projects are delivered within 48–72 hours. You review, we refine, and your solution goes live.</p>
     </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <div class="step-title">We support and grow</div>
-      <p class="step-desc">We don't disappear after delivery. We offer ongoing support, updates, and can keep building as your business grows.</p>
+    <div class="process-step">
+      <div class="step-n">STEP 04</div>
+      <div class="step-title">Support &amp; Scale</div>
+      <p class="step-desc">We don't disappear after delivery. Ongoing support, updates, and new features as your business grows.</p>
     </div>
   </div>
 </section>
 
 <!-- PORTFOLIO -->
-<section id="work">
-  <div class="section-eyebrow">Portfolio</div>
-  <h2>Real work. Real impact.</h2>
-  <p class="section-sub">Five AI-powered tools built for real industries — each one solving a specific business problem with custom technology.</p>
+<section id="portfolio">
+  <div class="eyebrow">Portfolio</div>
+  <h2 class="section-h2">Real solutions.<br />Measurable impact.</h2>
+  <p class="section-sub">Every project below solved a specific business problem. Here's what was built and what it achieved.</p>
 
-  <!-- Project Grid -->
-  <div class="projects-grid">
-
-    <!-- Wait & Carry -->
-    <div class="project-card featured-project">
-      <div class="project-header">
-        <div class="project-icon" style="background:rgba(0,194,255,0.1);color:#00C2FF">🚢</div>
-        <div>
-          <span class="project-tag" style="background:rgba(198,241,53,0.1);color:#C6F135;border-color:rgba(198,241,53,0.3)">Featured · Live Client</span>
-          <div class="project-title">Wait &amp; Carry Logistics Express Cargo</div>
-          <div class="project-industry">International Freight · China → Nigeria</div>
-        </div>
-      </div>
-      <p class="project-desc">Wait &amp; Carry imports goods from China to Nigeria for businesses and traders across the country. They needed a smarter way to handle customer enquiries, generate international freight quotes, and respond to emails — without hiring more staff.</p>
-      <ul class="project-features">
+  <!-- Featured -->
+  <div class="portfolio-featured">
+    <div class="portfolio-left">
+      <span class="portfolio-tag">✦ Live Client · Logistics</span>
+      <div class="portfolio-title">Wait &amp; Carry Logistics Express Cargo</div>
+      <div class="portfolio-challenge-label">The Challenge</div>
+      <p class="portfolio-challenge">Wait &amp; Carry imports freight from China to Nigeria for businesses across the country. Their team was manually handling every shipping enquiry, quote request, and customer email — one by one, taking hours per day.</p>
+      <div class="portfolio-solution-label">The Solution</div>
+      <ul class="portfolio-features">
         <li>AI shipping quote generator with real freight pricing (air &amp; sea)</li>
         <li>Shipment tracking assistant with live chat support</li>
         <li>Email auto-responder trained on company tone and policies</li>
-        <li>Password-protected admin panel — boss updates prices himself</li>
-        <li>Nonnytech branded · Delivered in 48 hours</li>
+        <li>Password-protected admin panel for the management team</li>
+        <li>Customer Q&amp;A chatbot for instant answers 24/7</li>
       </ul>
-      <div class="project-metrics">
-        <div class="project-metric"><div class="pm-num">3x</div><div class="pm-label">Faster responses</div></div>
-        <div class="project-metric"><div class="pm-num">24/7</div><div class="pm-label">Always available</div></div>
-        <div class="project-metric"><div class="pm-num">0</div><div class="pm-label">Extra staff needed</div></div>
-        <div class="project-metric"><div class="pm-num">48h</div><div class="pm-label">Brief to live</div></div>
+      <div style="font-size:12px;color:var(--mist);margin-top:8px">Industry: International Freight · China → Nigeria</div>
+    </div>
+    <div class="portfolio-right">
+      <div class="impact-grid">
+        <div class="impact-card"><div class="impact-num">3x</div><div class="impact-label">Faster customer response time</div></div>
+        <div class="impact-card"><div class="impact-num">24/7</div><div class="impact-label">Customer service availability</div></div>
+        <div class="impact-card"><div class="impact-num">0</div><div class="impact-label">Extra staff hired</div></div>
+        <div class="impact-card"><div class="impact-num">48h</div><div class="impact-label">From brief to live</div></div>
       </div>
-      <div class="project-quote">"The tool handles customer enquiries automatically and generates quotes instantly. It saves us significant time every single day." <strong>— Management, Wait &amp; Carry</strong></div>
+      <div class="portfolio-quote">
+        "The tool handles customer enquiries automatically and generates quotes instantly. It saves us significant time every single day."
+        <cite>— Management, Wait &amp; Carry Logistics Express Cargo</cite>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="portfolio-grid">
+    <div class="portfolio-card">
+      <div class="pc-icon">🏠</div>
+      <div class="pc-industry">Real Estate · Nigeria</div>
+      <div class="pc-title">PrimeNest Realty</div>
+      <p class="pc-challenge">Agents were manually matching buyers to properties and answering the same mortgage questions repeatedly — slow, inconsistent, and inefficient.</p>
+      <div class="pc-divider"></div>
+      <div style="font-size:12px;color:var(--silver);margin-bottom:12px">AI property search with instant listings, localized NGN mortgage calculator with advisory, and client inquiry auto-responder across 4 tone settings.</div>
+      <div class="pc-impact">
+        <div class="pc-impact-item"><div class="pc-impact-num">Instant</div><div class="pc-impact-label">Property matching</div></div>
+        <div class="pc-impact-item"><div class="pc-impact-num">24/7</div><div class="pc-impact-label">Client engagement</div></div>
+      </div>
     </div>
 
-    <!-- PrimeNest Realty -->
-    <div class="project-card">
-      <div class="project-header">
-        <div class="project-icon" style="background:rgba(212,175,95,0.1);color:#D4AF5F">🏠</div>
-        <div>
-          <span class="project-tag" style="background:rgba(212,175,95,0.1);color:#D4AF5F;border-color:rgba(212,175,95,0.3)">Real Estate · Nigeria</span>
-          <div class="project-title">PrimeNest Realty</div>
-          <div class="project-industry">Property Search · Mortgage · Client Inquiries</div>
-        </div>
+    <div class="portfolio-card">
+      <div class="pc-icon">🏨</div>
+      <div class="pc-industry">Hospitality · Abuja</div>
+      <div class="pc-title">Aso Grand Hotel</div>
+      <p class="pc-challenge">A 5-star hotel managing room bookings, guest requests, and housekeeping across 7 departments manually — creating delays and inconsistent service.</p>
+      <div class="pc-divider"></div>
+      <div style="font-size:12px;color:var(--silver);margin-bottom:12px">Full room booking system with pricing breakdown, 7-department AI guest inquiry routing, and automated housekeeping dispatch with staff assignment.</div>
+      <div class="pc-impact">
+        <div class="pc-impact-item"><div class="pc-impact-num">7</div><div class="pc-impact-label">Departments automated</div></div>
+        <div class="pc-impact-item"><div class="pc-impact-num">5★</div><div class="pc-impact-label">Service standard maintained</div></div>
       </div>
-      <p class="project-desc">A complete AI property platform for Nigerian real estate agencies. Clients search for properties by location and budget, calculate mortgage repayments with a Nigerian advisor, and agents respond to inquiries instantly.</p>
-      <ul class="project-features">
-        <li>AI property search with instant realistic listings</li>
-        <li>Mortgage calculator with NGN formatting &amp; advisory</li>
-        <li>Client inquiry auto-responder (4 tone options)</li>
-      </ul>
     </div>
 
-    <!-- Zuri Kitchen -->
-    <div class="project-card">
-      <div class="project-header">
-        <div class="project-icon" style="background:rgba(196,82,42,0.1);color:#C4522A">🌍</div>
-        <div>
-          <span class="project-tag" style="background:rgba(196,82,42,0.1);color:#E07A3A;border-color:rgba(196,82,42,0.3)">Restaurant · Lagos</span>
-          <div class="project-title">Zuri Kitchen</div>
-          <div class="project-industry">African Fusion · Menu · Reservations · Orders</div>
-        </div>
+    <div class="portfolio-card">
+      <div class="pc-icon">🌍</div>
+      <div class="pc-industry">Food & Beverage · Lagos</div>
+      <div class="pc-title">Zuri Kitchen</div>
+      <p class="pc-challenge">A modern African fusion restaurant losing bookings and revenue to slow manual reservation handling and inconsistent responses to customer messages across WhatsApp, Instagram, and email.</p>
+      <div class="pc-divider"></div>
+      <div style="font-size:12px;color:var(--silver);margin-bottom:12px">AI menu assistant with dietary filtering, instant reservation system with staff notes, and multi-channel order inquiry responder.</div>
+      <div class="pc-impact">
+        <div class="pc-impact-item"><div class="pc-impact-num">3</div><div class="pc-impact-label">Channels automated</div></div>
+        <div class="pc-impact-item"><div class="pc-impact-num">Instant</div><div class="pc-impact-label">Reservation confirmation</div></div>
       </div>
-      <p class="project-desc">An AI-powered restaurant management tool for a modern African fusion restaurant in Lagos. Personalised menu recommendations, table reservations with instant confirmation, and customer message auto-responses.</p>
-      <ul class="project-features">
-        <li>AI menu assistant with dietary &amp; preference filtering</li>
-        <li>Reservation system with table assignment &amp; staff notes</li>
-        <li>Order &amp; inquiry responder (WhatsApp, Instagram, Email)</li>
-      </ul>
     </div>
-
-    <!-- Aso Grand Hotel -->
-    <div class="project-card">
-      <div class="project-header">
-        <div class="project-icon" style="background:rgba(201,168,76,0.1);color:#C9A84C">🏨</div>
-        <div>
-          <span class="project-tag" style="background:rgba(201,168,76,0.1);color:#C9A84C;border-color:rgba(201,168,76,0.3)">Hospitality · Abuja</span>
-          <div class="project-title">Aso Grand Hotel</div>
-          <div class="project-industry">5-Star · Bookings · Guest Services · Housekeeping</div>
-        </div>
-      </div>
-      <p class="project-desc">A luxury hotel management AI for a 5-star property in Abuja. Full room booking with pricing and VAT breakdown, 5-star guest inquiry responses by department, and a housekeeping request dispatch system.</p>
-      <ul class="project-features">
-        <li>Room booking with full cost breakdown &amp; GM welcome message</li>
-        <li>Guest inquiry responder across 7 hotel departments</li>
-        <li>Service request system with staff assignment &amp; tracking</li>
-      </ul>
-    </div>
-
-    <!-- BI Dashboard -->
-    <div class="project-card">
-      <div class="project-header">
-        <div class="project-icon" style="background:rgba(59,130,246,0.1);color:#3B82F6">📊</div>
-        <div>
-          <span class="project-tag" style="background:rgba(59,130,246,0.1);color:#3B82F6;border-color:rgba(59,130,246,0.3)">Data · Any Business</span>
-          <div class="project-title">Business Intelligence Dashboard</div>
-          <div class="project-industry">Revenue · Analytics · AI Insights · Any Industry</div>
-        </div>
-      </div>
-      <p class="project-desc">A universal business intelligence dashboard that turns raw business data into clear visual charts and AI-written reports. Works for logistics, restaurants, retail, hotels — any business that wants to understand its numbers.</p>
-      <ul class="project-features">
-        <li>Live revenue trend, bar, and pie charts</li>
-        <li>Top product/service performance rankings</li>
-        <li>AI-generated 3-point business insight report</li>
-      </ul>
-    </div>
-
   </div>
 
   <div style="text-align:center;margin-top:48px">
-    <p style="color:#8FA8BF;font-size:15px;margin-bottom:20px">Every tool above was built in under 72 hours. Yours could be next.</p>
-    <a href="#contact" class="btn-primary">Start Your Project →</a>
+    <p style="color:var(--mist);font-size:15px;margin-bottom:20px">Every project above was built and delivered in under 72 hours.</p>
+    <a href="#contact" class="btn-primary btn-large">Start Your Project →</a>
   </div>
 </section>
 
 <!-- PRICING -->
 <section id="pricing">
-  <div class="section-eyebrow">Pricing</div>
-  <h2>Simple, transparent pricing</h2>
-  <p class="section-sub">No hidden fees. No long-term contracts. Pay for what you need.</p>
+  <div class="eyebrow">Pricing</div>
+  <h2 class="section-h2">Transparent pricing.<br />No surprises — ever.</h2>
+  <p class="section-sub">Price and timeline are agreed before any work begins. What we quote is what you pay.</p>
+
   <div class="pricing-grid">
     <div class="pricing-card">
       <div class="pricing-plan">Starter</div>
       <div class="pricing-price">₦75<sub>k</sub></div>
       <div class="pricing-period">One-time setup</div>
+      <div class="pricing-trust">✓ Price &amp; scope agreed before work begins. No hidden fees.</div>
+      <div class="pricing-divider"></div>
       <ul class="pricing-features">
-        <li><span class="check">✓</span> Single AI tool (quote, chatbot, or responder)</li>
+        <li><span class="check">✓</span> Single AI tool or business website</li>
         <li><span class="check">✓</span> Mobile-ready design</li>
         <li><span class="check">✓</span> Your branding included</li>
+        <li><span class="check">✓</span> WhatsApp integration</li>
         <li><span class="check">✓</span> 7-day support after delivery</li>
         <li><span class="check">✓</span> Delivered in 48 hours</li>
       </ul>
       <a href="#contact" class="btn-plan outline">Get Started</a>
     </div>
+
     <div class="pricing-card featured">
       <div class="pricing-badge">Most Popular</div>
       <div class="pricing-plan">Business</div>
       <div class="pricing-price">₦150<sub>k</sub></div>
       <div class="pricing-period">One-time + ₦25k/month support</div>
+      <div class="pricing-trust">✓ Full scope documented. Price locked. Timeline guaranteed.</div>
+      <div class="pricing-divider"></div>
       <ul class="pricing-features">
         <li><span class="check">✓</span> Full custom AI tool suite</li>
         <li><span class="check">✓</span> Admin panel for your team</li>
@@ -880,10 +860,13 @@
       </ul>
       <a href="#contact" class="btn-plan primary">Get Started</a>
     </div>
+
     <div class="pricing-card">
       <div class="pricing-plan">Enterprise</div>
-      <div class="pricing-price">Custom</div>
-      <div class="pricing-period">Let's talk about your needs</div>
+      <div class="pricing-price" style="font-size:28px;padding-top:6px">Custom</div>
+      <div class="pricing-period">Quoted per project</div>
+      <div class="pricing-trust">✓ Full agreement on deliverables, timeline &amp; cost before a single line of code is written.</div>
+      <div class="pricing-divider"></div>
       <ul class="pricing-features">
         <li><span class="check">✓</span> Full automation system</li>
         <li><span class="check">✓</span> Multi-tool integration</li>
@@ -896,158 +879,168 @@
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-wrap">
-    <div class="contact-info">
-      <div class="section-eyebrow">Get In Touch</div>
-      <h2>Let's build something great together</h2>
-      <p>Tell us what your business needs. We'll respond within 24 hours with a plan and a price — no obligation.</p>
-      <div class="contact-methods">
-        <a href="mailto:frankchukwunonso1@gmail.com" class="contact-method">
-          <div class="contact-method-icon" style="background:rgba(0,194,255,0.1)">✉</div>
-          <div>
-            <div class="contact-method-label">EMAIL</div>
-            <div class="contact-method-val">frankchukwunonso1@gmail.com</div>
-          </div>
-        </a>
-        <a href="https://wa.me/2349067855807" target="_blank" class="contact-method">
-          <div class="contact-method-icon" style="background:rgba(34,197,94,0.1)">💬</div>
-          <div>
-            <div class="contact-method-label">WHATSAPP</div>
-            <div class="contact-method-val">+234 906 785 5807</div>
-          </div>
-        </a>
-      </div>
+<!-- ACADEMY -->
+<section id="academy">
+  <div class="eyebrow">Nonnytech Academy</div>
+  <div class="academy-wrap">
+    <div class="academy-left">
+      <div class="academy-badge">🎓 Now Enrolling</div>
+      <h2 class="academy-h2">Learn to Build AI Tools &amp; Websites — No Coding Experience Required</h2>
+      <p class="academy-sub">Nonnytech Academy teaches you the exact skills used to build the projects above. Whether you want to automate your own business or start earning by building for others — we teach you how.</p>
+      <p style="font-size:14px;color:var(--mist);margin-bottom:28px">Affordable fees. Online and in-person sessions available in Awka, Anambra.</p>
+      <a href="https://wa.me/2349067855807?text=Hi%20Nonnytech!%20I%20am%20interested%20in%20the%20Academy.%20Please%20tell%20me%20more." target="_blank" class="btn-primary btn-large">💬 Chat to Enrol on WhatsApp</a>
     </div>
-    <div>
-      <form class="contact-form" onsubmit="handleSubmit(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Your Name</label>
-            <input class="form-input" type="text" placeholder="e.g. Emeka Obi" required />
+    <div class="academy-right">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--mist);text-transform:uppercase;margin-bottom:20px">Training Tracks</div>
+      <div class="academy-tracks">
+        <div class="academy-track">
+          <div class="track-icon" style="background:rgba(37,99,235,0.12)">🤖</div>
+          <div>
+            <div class="track-name">AI Tool Development</div>
+            <div class="track-desc">Build AI-powered customer service tools, quote generators, and chatbots from scratch using real business projects.</div>
+            <div class="track-tag">Affordable · Hands-on</div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Business Name</label>
-            <input class="form-input" type="text" placeholder="e.g. Obi Logistics Ltd" />
+        </div>
+        <div class="academy-track">
+          <div class="track-icon" style="background:rgba(132,204,22,0.1)">🌐</div>
+          <div>
+            <div class="track-name">Website Development</div>
+            <div class="track-desc">Design and build professional business websites. Deploy them live and start earning from clients immediately after.</div>
+            <div class="track-tag">Affordable · Project-based</div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Email or WhatsApp</label>
-          <input class="form-input" type="text" placeholder="Your email or WhatsApp number" required />
+        <div class="academy-track">
+          <div class="track-icon" style="background:rgba(245,158,11,0.1)">🚀</div>
+          <div>
+            <div class="track-name">Full AI Business Mentorship</div>
+            <div class="track-desc">Everything — AI tools, websites, client acquisition, pricing, and running your own tech business. 1-on-1 guidance from start to first client.</div>
+            <div class="track-tag">Affordable · 1-on-1 · Most complete</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">What do you need?</label>
-          <select class="form-select">
-            <option value="">Select a service</option>
-            <option>AI-Powered Tool</option>
-            <option>Website Development</option>
-            <option>Data Dashboard</option>
-            <option>Automation / Chatbot</option>
-            <option>Training & Mentorship</option>
-            <option>Not sure — let's talk</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Tell us about your business</label>
-          <textarea class="form-textarea" placeholder="Briefly describe what you do and what problem you want to solve..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Send Message →</button>
-        <div class="form-success" id="formSuccess">
-          ✓ Message received! We're opening WhatsApp so you can send it directly — we'll respond within a few hours.
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- TRAINING -->
-<section id="training" style="background:var(--black)">
-  <div class="section-eyebrow">Training & Mentorship</div>
-  <h2>Learn to Build AI Tools &amp; Websites</h2>
-  <p class="section-sub">Want to build AI-powered tools and websites for businesses yourself? Nonnytech offers affordable, hands-on training — no prior coding experience needed.</p>
-
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:48px">
-
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:32px;border-top:3px solid var(--electric)">
-      <div style="font-size:32px;margin-bottom:16px">🤖</div>
-      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:10px">AI Tool Development</div>
-      <p style="color:var(--mist);font-size:14px;line-height:1.7;margin-bottom:16px">Learn how to build AI-powered customer service tools, quote generators, chatbots, and automation systems for real businesses — using the same tools Nonnytech uses for clients.</p>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--electric);font-weight:700">✓</span>Build AI tools from scratch</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--electric);font-weight:700">✓</span>No coding experience required</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--electric);font-weight:700">✓</span>Hands-on project-based learning</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--electric);font-weight:700">✓</span>Learn to sell your skills to clients</li>
-      </ul>
-      <a href="https://wa.me/2349067855807?text=Hi%20Nonnytech!%20I%20am%20interested%20in%20the%20AI%20Tool%20Development%20training.%20Please%20tell%20me%20more." target="_blank" style="color:var(--electric);font-size:13px;font-weight:700;text-decoration:none">Affordable · Chat to Enrol →</a>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <div class="eyebrow">Get In Touch</div>
+      <h2 class="section-h2">Let's build something that works for your business</h2>
+      <p>Tell us what you need. We'll respond within 24 hours with a clear plan and a fixed price — no obligation.</p>
+      <div class="contact-channels">
+        <a href="mailto:frankchukwunonso1@gmail.com" class="contact-channel">
+          <div class="channel-icon" style="background:rgba(37,99,235,0.12)">✉</div>
+          <div>
+            <div class="channel-type">Email</div>
+            <div class="channel-val">frankchukwunonso1@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://wa.me/2349067855807" target="_blank" class="contact-channel">
+          <div class="channel-icon" style="background:rgba(34,197,94,0.1)">💬</div>
+          <div>
+            <div class="channel-type">WhatsApp</div>
+            <div class="channel-val">+234 906 785 5807</div>
+          </div>
+        </a>
+      </div>
     </div>
-
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:32px;border-top:3px solid var(--volt)">
-      <div style="font-size:32px;margin-bottom:16px">🌐</div>
-      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:10px">Website Development</div>
-      <p style="color:var(--mist);font-size:14px;line-height:1.7;margin-bottom:16px">Learn to design and build professional business websites from scratch. By the end of the training, you'll be able to build and sell websites to businesses in your community and beyond.</p>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--volt);font-weight:700">✓</span>Build real business websites</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--volt);font-weight:700">✓</span>Mobile-ready, modern designs</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--volt);font-weight:700">✓</span>Deploy live to the internet</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--volt);font-weight:700">✓</span>Start earning immediately after</li>
-      </ul>
-      <a href="https://wa.me/2349067855807?text=Hi%20Nonnytech!%20I%20am%20interested%20in%20the%20Website%20Development%20training.%20Please%20tell%20me%20more." target="_blank" style="color:var(--volt);font-size:13px;font-weight:700;text-decoration:none">Affordable · Chat to Enrol →</a>
-    </div>
-
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:32px;border-top:3px solid var(--amber)">
-      <div style="font-size:32px;margin-bottom:16px">🚀</div>
-      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:10px">Full AI Business Mentorship</div>
-      <p style="color:var(--mist);font-size:14px;line-height:1.7;margin-bottom:16px">A complete mentorship programme covering AI tools, website development, client acquisition, pricing, and running your own AI services business — everything Nonnytech does, taught to you step by step.</p>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--amber);font-weight:700">✓</span>AI tools + websites + business skills</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--amber);font-weight:700">✓</span>How to get and retain clients</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--amber);font-weight:700">✓</span>How to price your services</li>
-        <li style="font-size:13px;color:var(--mist);display:flex;gap:8px"><span style="color:var(--amber);font-weight:700">✓</span>1-on-1 personalised guidance</li>
-      </ul>
-      <a href="https://wa.me/2349067855807?text=Hi%20Nonnytech!%20I%20am%20interested%20in%20the%20Full%20AI%20Business%20Mentorship.%20Please%20tell%20me%20more." target="_blank" style="color:var(--amber);font-size:13px;font-weight:700;text-decoration:none">Affordable · Chat to Enrol →</a>
-    </div>
-
-  </div>
-
-  <div style="background:var(--panel);border:1px solid rgba(0,194,255,0.2);border-radius:12px;padding:40px;text-align:center;max-width:640px;margin:0 auto">
-    <div style="font-size:36px;margin-bottom:16px">🎓</div>
-    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:12px">Ready to Learn?</div>
-    <p style="color:var(--mist);font-size:15px;line-height:1.7;margin-bottom:24px">Join our next training session and gain skills that can earn you income immediately. Affordable fees, real projects, real results. Online and in-person sessions available in Awka.</p>
-    <a href="https://wa.me/2349067855807?text=Hi%20Nonnytech!%20I%20am%20interested%20in%20your%20training%20programme.%20Please%20tell%20me%20more." target="_blank" class="btn-primary">💬 Chat With Us About Training</a>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" type="text" placeholder="e.g. Emeka Obi" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Business Name</label>
+          <input class="form-input" type="text" placeholder="e.g. Obi Logistics Ltd" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email or WhatsApp</label>
+          <input class="form-input" type="text" placeholder="Your contact" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Industry</label>
+          <input class="form-input" type="text" placeholder="e.g. Logistics, Retail, Hotel" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">What do you need?</label>
+        <select class="form-select">
+          <option value="">Select a service</option>
+          <option>AI-Powered Tool / Chatbot</option>
+          <option>Business Website</option>
+          <option>Data Dashboard</option>
+          <option>Process Automation</option>
+          <option>Academy / Training</option>
+          <option>Not sure — let's talk</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Describe your business challenge</label>
+        <textarea class="form-textarea" placeholder="What problem are you trying to solve? What's taking too long or costing too much?"></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+      <div class="form-success" id="formSuccess">✓ Message received! Opening WhatsApp so you can send directly — we'll respond within 24 hours.</div>
+    </form>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">NONNYTECH</div>
-  <div class="footer-copy">© 2025 Nonnytech · We Build the Tech That Helps You Run Your Business.</div>
+  <div class="footer-brand">
+    <div class="nav-mark">N</div>
+    <div>
+      <div class="footer-name">Nonnytech</div>
+      <div class="footer-tagline">Scale Smarter with AI</div>
+    </div>
+  </div>
   <div class="footer-links">
     <a href="#services">Services</a>
-    <a href="#work">Portfolio</a>
-    <a href="#training">Training</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#academy">Academy</a>
     <a href="#contact">Contact</a>
     <a href="mailto:frankchukwunonso1@gmail.com">Email</a>
     <a href="https://wa.me/2349067855807" target="_blank">WhatsApp</a>
   </div>
+  <div class="footer-copy">© 2025 Nonnytech</div>
 </footer>
 
-<script>
-  // Smooth nav highlight
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
+<div class="nonnytech-credit">
+  <div class="nonnytech-credit-brand">⚡ NONNYTECH</div>
+  <p>This AI-powered business website was designed &amp; built by <strong style="color:#fff">Nonnytech</strong>. Want one for your business?</p>
+  <div class="nonnytech-credit-links">
+    <a href="mailto:frankchukwunonso1@gmail.com" class="credit-link" style="color:#F4A226;border-color:rgba(244,162,38,0.3);background:rgba(244,162,38,0.08)">✉ frankchukwunonso1@gmail.com</a>
+    <a href="https://wa.me/2349067855807" target="_blank" class="credit-link" style="color:#22c55e;border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.08)">💬 WhatsApp: +234 906 785 5807</a>
+  </div>
+</div>
 
+<script>
+  // Smooth scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  });
+
+  // Nav highlight
+  const sections = document.querySelectorAll('section[id]');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 100) current = s.id;
-    });
-    navLinks.forEach(a => {
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    document.querySelectorAll('.nav-links a').forEach(a => {
       a.style.color = a.getAttribute('href') === '#' + current ? '#fff' : '';
     });
   });
 
-  // Form submission
+  // Form
   function handleSubmit(e) {
     e.preventDefault();
     const name = e.target.querySelector('input[placeholder*="Emeka"]').value || "there";
@@ -1055,73 +1048,24 @@
     const service = e.target.querySelector('select').value || "your project";
     const message = e.target.querySelector('textarea').value || "";
     const btn = e.target.querySelector('.form-submit');
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    // Build WhatsApp message
-    const waText = encodeURIComponent(
-      "Hello Nonnytech! 👋\n\n" +
-      "My name is " + name + ".\n" +
-      "Service needed: " + service + "\n" +
-      (message ? "Details: " + message + "\n" : "") +
-      (contact ? "Contact: " + contact : "")
-    );
-
+    btn.textContent = 'Sending...'; btn.disabled = true;
+    const waText = encodeURIComponent("Hello Nonnytech! 👋\n\nMy name is " + name + ".\nService needed: " + service + "\n" + (message ? "Details: " + message + "\n" : "") + (contact ? "Contact: " + contact : ""));
     setTimeout(() => {
       document.getElementById('formSuccess').style.display = 'block';
       btn.style.display = 'none';
-      // Open WhatsApp with pre-filled message
       window.open('https://wa.me/2349067855807?text=' + waText, '_blank');
     }, 800);
   }
 
-  // Make all CTA buttons scroll smoothly to contact
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('a[href="#contact"]').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const contact = document.getElementById('contact');
-        if (contact) {
-          contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-    document.querySelectorAll('a[href="#work"]').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const work = document.getElementById('work');
-        if (work) work.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-    document.querySelectorAll('a[href="#services"]').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const el = document.getElementById('services');
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-    document.querySelectorAll('a[href="#pricing"]').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const el = document.getElementById('pricing');
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-  });
-
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
+      if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
 
-  document.querySelectorAll('.service-card, .step, .case-study, .pricing-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
+  document.querySelectorAll('.service-card, .portfolio-card, .pricing-card, .academy-track, .process-step').forEach(el => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
